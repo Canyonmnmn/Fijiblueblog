@@ -4,10 +4,10 @@ const repo = 'Fijiblueblog'
 export default defineConfig({
   base: process.env.NODE_ENV === 'production' ? `/${repo}/` : '/',
   publicPath: process.env.NODE_ENV === 'production' ? `/${repo}/` : '/',
-  favicons:['/avater.svg'],
+  // favicons:['/avater.svg'],
   themeConfig: {
     name: 'FijiBlue',
-    logo: '/avater.svg',
+    // logo: '/avater.svg',
     socialLinks:{
       github:"https://github.com/Canyonmnmn"
     },
