@@ -1,0 +1,39 @@
+{
+  "name": "blog",
+  "version": "0.0.1",
+  "description": "A static site based on dumi",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "dumi dev",
+    "build": "dumi build",
+    "prepare": "husky install && dumi setup"
+  },
+  "authors": [],
+  "license": "MIT",
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.{md,json}": [
+      "prettier --write --no-error-on-unmatched-pattern"
+    ]
+  },
+  "devDependencies": {
+    "@ant-design/icons": "^5.1.0",
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
+    "dumi": "^2.1.24",
+    "dumi-theme-antd-style": "^0.25.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8"
+  },
+  "dependencies": {
+    "@types/react": "^18.2.6",
+    "icons": "link:@types/@ant-design/icons",
+    "react": "^18.2.0",
+    "react-layout-kit": "^1.7.0"
+  }
+}
