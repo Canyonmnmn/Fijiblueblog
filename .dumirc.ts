@@ -6,7 +6,7 @@ export default defineConfig({
   publicPath: process.env.NODE_ENV === 'production' ? `/${repo}/` : '/',
   favicons:['/avater.svg'],
   themeConfig: {
-    name: 'FijiBlue - 个人博客',
+    name: 'FijiBlue',
     logo: '/avater.svg',
     socialLinks:{
       github:"https://github.com/Canyonmnmn"
