@@ -6,6 +6,7 @@
     "start": "npm run dev",
     "dev": "dumi dev",
     "docs:build": "dumi build",
+    "deploy": "gh-pages -d dist",
     "prepare": "husky install && dumi setup"
   },
   "authors": [],
