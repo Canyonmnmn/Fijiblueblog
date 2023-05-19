@@ -2,6 +2,7 @@
 group: webpack模块
 order: 2
 title: 搭建JS工程环境
+highlighter: prism
 ---
 
 # 如何利用Webpack集成Babel+TS+ESLint的JS工程环境？
@@ -18,13 +19,13 @@ ES6版本补充了Javascript的新特性，例如箭头函数、代理与反射�
 
 - 安装依赖
 
-  ```bash
+```bash
   npm/yarn/pnpm i -D @babel/core @babel/preset-env babel-loader
-  ```
+```
 
 - 添加模块处理规则
 
-  ```js
+```js
   module.exports = {
     /* ... */
     module: {
@@ -46,7 +47,7 @@ ES6版本补充了Javascript的新特性，例如箭头函数、代理与反射�
       	],
    	 },
   };
-  ```
+```
 
 上述中，`module`属性用于声明模块处理规则，`module.rules`子属性则用于定义针对什么类型的文件使用哪些Loader处理器：
 
@@ -60,30 +61,30 @@ ES6版本补充了Javascript的新特性，例如箭头函数、代理与反射�
 
 - 安装依赖
 
-  ```js
-  npm/yarn/pnpm i -D typescript ts-loader
-  ```
+```js
+npm/yarn/pnpm i -D typescript ts-loader
+```
 
 - 配置webpack
 
-  ```js
-  const path = require('path');
-  
-  module.exports = {
-    /* xxx */
-    module: {
-      rules: [
-        {
-          test: /\.ts$/,
-          use: 'ts-loader'
-        },
-      ],
-    },
-    resolve: {
-      extensions: ['.ts', '.js'],
-    }
-  };
-  ```
+```js
+const path = require('path');
+
+module.exports = {
+  /* xxx */
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader'
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
+  }
+};
+```
 
 使用 `resolve.extensions` 声明自动解析 `.ts` 后缀文件，这意味着代码如 `import "./a.ts"` 可以忽略后缀声明，简化为 `import "./a"` 文件。
 
@@ -99,40 +100,40 @@ JavaScript 被设计成一种**高度灵活的动态、弱类型脚本语言**�
 
 - 安装依赖
 
-  ```js
-  # 安装 eslint 
-  npm/yarn/pnpm add -D eslint eslint-webpack-plugin
-  
-  # 简单起见，这里直接使用 standard 规范
-  npm/yarn/pnpm add -D eslint-config-standard
-  ```
+```js
+# 安装 eslint 
+npm/yarn/pnpm add -D eslint eslint-webpack-plugin
+
+# 简单起见，这里直接使用 standard 规范
+npm/yarn/pnpm add -D eslint-config-standard
+```
 
 - 在项目根目录下添加`.eslintrc` 配置文件
 
-  ```js
-  {
-    "extends": "standard"
-  }
+```js
+{
+  "extends": "standard"
+}
   ```
 
 - 添加 `webpack.config.js` 配置文件，补充 `eslint-webpack-plugin` 配置
 
-  ```js
-  const path = require('path')
-  const ESLintPlugin = require('eslint-webpack-plugin')
-  
-  module.exports = {
-    entry: './src/index',
-    mode: 'development',
-    devtool: false,
-    output: {
-      filename: '[name].js',
-      path: path.resolve(__dirname, 'dist')
-    },
-    // 添加 eslint-webpack-plugin 插件实例
-    plugins: [new ESLintPlugin()]
-  }
-  ```
+```js
+const path = require('path')
+const ESLintPlugin = require('eslint-webpack-plugin')
+
+module.exports = {
+  entry: './src/index',
+  mode: 'development',
+  devtool: false,
+  output: {
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  // 添加 eslint-webpack-plugin 插件实例
+  plugins: [new ESLintPlugin()]
+}
+```
 
 ## 统一集成
 
@@ -140,56 +141,56 @@ JavaScript 被设计成一种**高度灵活的动态、弱类型脚本语言**�
 
 - 安装依赖
 
-  ```bash
-  ## 安装webpack
-  		-D webpack webpack-cli
-  
-  # babel 依赖
-      @babel/core @babel/cli @babel/preset-env babel-loader \
-  # TypeScript 依赖
-      typescript @typescript-eslint/parser @typescript-		   eslint/eslint-plugin @babel/preset-typescript
-  # ESLint 依赖
-      eslint eslint-webpack-plugin
-  ```
+```bash
+## 安装webpack
+		-D webpack webpack-cli
+
+# babel 依赖
+    @babel/core @babel/cli @babel/preset-env babel-loader \
+# TypeScript 依赖
+    typescript @typescript-eslint/parser @typescript-		   eslint/eslint-plugin @babel/preset-typescript
+# ESLint 依赖
+    eslint eslint-webpack-plugin
+```
 
 - 创建webpack.config.js配置文件并输入：
 
-  ```js
-  const path = require('path')
-  const ESLintPlugin = require('eslint-webpack-plugin')
-  
-  module.exports = {
-    entry: './src/index.ts',
-    mode: 'development',
-    devtool: false,
-    output: {
-      filename: '[name].js',
-      path: path.resolve(__dirname, 'dist')
-    },
-    module: {
-      rules: [
-        {
-          test: /\.ts$/,
-          use: {
-            loader: 'babel-loader',
-            options: { presets: ['@babel/preset-typescript'] }
-          }
+```js
+const path = require('path')
+const ESLintPlugin = require('eslint-webpack-plugin')
+
+module.exports = {
+  entry: './src/index.ts',
+  mode: 'development',
+  devtool: false,
+  output: {
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: {
+          loader: 'babel-loader',
+          options: { presets: ['@babel/preset-typescript'] }
         }
-      ]
-    },
-    plugins: [new ESLintPlugin({ extensions: ['.js', '.ts'] })]
-  }
-  ```
+      }
+    ]
+  },
+  plugins: [new ESLintPlugin({ extensions: ['.js', '.ts'] })]
+}
+```
 
 - 创建 `.eslintrc` 文件并输入：
 
-  ```js
-  {
-    "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint"],
-    "extends": ["plugin:@typescript-eslint/recommended"]
-  }
-  ```
+```js
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": ["plugin:@typescript-eslint/recommended"]
+}
+```
 
   ESLint需要配置typescipet语法的规则集。
 
@@ -198,3 +199,4 @@ JavaScript 被设计成一种**高度灵活的动态、弱类型脚本语言**�
 - Babel 提供的语言转译能力，能在确保产物兼容性的同时，让我们大胆使用各种新的 ECMAScript 语言特性；
 - TypeScript 提供的类型检查能力，能有效提升应用代码的健壮性；
 - ESLint 提供的风格检查能力，能确保多人协作时的代码一致性。
+
