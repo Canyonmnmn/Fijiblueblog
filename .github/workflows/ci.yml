@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master # default branch
+    paths-ignore:
+      - README.md
 
 jobs:
   deploy:
