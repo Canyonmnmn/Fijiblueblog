@@ -32,7 +32,6 @@
   },
   "dependencies": {
     "@types/react": "^18.2.6",
-    "icons": "link:@types/@ant-design/icons",
     "react": "^18.2.0",
     "react-layout-kit": "^1.7.0"
   }

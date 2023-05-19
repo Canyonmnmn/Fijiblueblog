@@ -4,9 +4,6 @@ dependencies:
   '@types/react':
     specifier: ^18.2.6
     version: registry.npmmirror.com/@types/react@18.2.6
-  icons:
-    specifier: link:@types/@ant-design/icons
-    version: link:@types/@ant-design/icons
   react:
     specifier: ^18.2.0
     version: registry.npmmirror.com/react@18.2.0
