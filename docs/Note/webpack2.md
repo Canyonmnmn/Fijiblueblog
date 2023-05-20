@@ -2,7 +2,6 @@
 group: webpack模块
 order: 2
 title: 搭建JS工程环境
-highlighter: prism
 ---
 
 # 如何利用Webpack集成Babel+TS+ESLint的JS工程环境？

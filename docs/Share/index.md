@@ -11,4 +11,4 @@ title: 介绍
 :::info{title=Tips}
 欢迎向[我的Discussions区域](https://github.com/Canyonmnmn/Canyonmnmn/discussions/1)和我分享你的项目和文章哦。
 :::
-![data](../../public/images/dataa.png)
+![data](../../public/images/share.svg)
