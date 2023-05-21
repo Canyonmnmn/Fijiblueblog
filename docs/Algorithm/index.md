@@ -1,6 +1,6 @@
 ---
 nav:
-    title: 每周算法
+    title: 算法笔记
     order: 4
 title: 介绍
 ---
