@@ -1,12 +1,9 @@
 ---
 group: webpack模块
 order: 4
-title: 配置详解
+title: 配置结构规则
 ---
-# 配置详解
-Webpack 是一种 「**配置**」驱动的构建工具，学习 Webpack 的各项配置规则，才能灵活应对各种构建需求。
-
-## 配置结构规则
+# 配置结构规则
 大多数情况下，配置入口/出口都是以单文件配置：
     
 ```js
@@ -17,7 +14,7 @@ module.exports ={
 ```
 但是如果我们的项目需要**打包成不同模块方案**的产物呢？
 Webpack 还支持以数组、函数方式配置运行参数。
-### 使用数组配置
+## 使用数组配置
 >数组方式主要用于应对“同一份代码打包出多种产物”的场景
 
 ```js
@@ -76,7 +73,7 @@ module.exports = [
   }),
 ];
 ```
-### 使用函数配置
+## 使用函数配置
 配置函数方式要求在配置文件中导出一个函数，并在函数中返回 Webpack 配置对象，或配置数组，或 Promise 对象，如：
         
 ```js
@@ -114,7 +111,7 @@ module.exports = function (env, argv) {
 - 需要在配置函数内做许多逻辑判断，复杂场景下可能可读性会很低，维护成本高。
 - 强依赖命令行指令，有可能需要写很长的指令，应用体验差。
 
-### 环境治理策略
+## 环境治理策略
 在现代前端工程化实践中，通常需要将一个项目部署在不同的环境中(如开发环境、测试环境、生产环境)，以满足参与项目各方的需求。对不同环境，有着不同的打包侧重逻辑。
 - 开发环境：需要使用 webpack-dev-server 实现 Hot Module Replacement(热更新)。
 - 测试环境：需要带上完整的 Soucemap 内容，以帮助更好地定位问题。
@@ -168,7 +165,29 @@ module.exports = merge(baseConfig, {
   devServer: { hot: true },
 });
 ```
-## 核心配置项详解
+<!-- ## 核心配置项详解 -->
 
 ### entry
+>只讲解对象配置
 
+```js
+module.exports ={
+  entry:{
+    import:'./src/index.js',
+    dependOn:'shared',
+    // runtime: ...
+  }
+}
+```
+- import:入口文件路径
+- dependOn:声明该入口的前置依赖Bundle
+- runtime:设置该入口的 Runtime Chunk
+- filename:效果与 output.filename 类同，用于声明该模块构建产物路径；
+- library：声明该入口的 output.library 配置，一般在构建 NPM Library 时使用；
+- publicPath：效果与 output.publicPath 相同，用于声明该入口文件的发布 URL；
+- chunkLoading：效果与 output.chunkLoading 相同，用于声明异步模块加载的技术方案，支持 false/jsonp/require/import 等值；
+- asyncChunks：效果与 output.asyncChunks 相同，用于声明是否支持异步模块加载，默认值为 true。
+
+其中runtime的作用是**管理运行时代码**。
+为支持产物代码在各种环境中正常运行，Webpack 会在产物文件中注入一系列运行时代码，用以支撑起整个应用框架。运行时代码的多寡取决于我们用到多少特性。
+运行时代码量，极端情况下甚至有可能超过业务代码总量！为此，必要时我们可以尝试使用 runtime 配置将运行时抽离为独立 Bundle。
