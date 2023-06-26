@@ -1,5 +1,5 @@
 ---
 group: JavaScript
-title:  Immer.js
+title: Immer.js
 order: 2
 ---

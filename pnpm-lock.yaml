@@ -2414,7 +2414,7 @@ packages:
       postcss: '>=7.0.0'
       postcss-syntax: '>=0.36.2'
     dependencies:
-      '@babel/core': registry.npmmirror.com/@babel/core@7.21.0
+      '@babel/core': registry.npmmirror.com/@babel/core@7.21.8
       postcss: registry.npmmirror.com/postcss@8.4.23
       postcss-syntax: registry.npmmirror.com/postcss-syntax@0.36.2(postcss@8.4.23)
     transitivePeerDependencies:
