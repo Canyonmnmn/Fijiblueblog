@@ -1,6 +1,6 @@
 import { defineConfig } from 'dumi';
 
-const repo = 'canyonBlog';
+const repo = 'Fijiblueblog';
 export default defineConfig({
   base: process.env.NODE_ENV === 'production' ? `/${repo}/` : '/',
   publicPath: process.env.NODE_ENV === 'production' ? `/${repo}/` : '/',
