@@ -1,7 +1,7 @@
 ---
 group: 链表
 title: 链表理论
-order: 1
+order: 2
 ---
 
 # 链表
