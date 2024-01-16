@@ -69,7 +69,8 @@ f('a', 'b'); // Ok
 ```
 
 > 本道题我们希望参数 a 和 b 的类型都是一致的，即 a 和 b 同时为 number 或 string 类型。当它们的类型不一致的值，TS 类型检查器能自动提示对应的错误信息。
-> 解一：函数重载
+
+解一：函数重载
 
 ```ts
 function f(a: string, b: string): string;
@@ -97,4 +98,59 @@ function f(a: paramsType) {
     return a[0] + a[1]; // error as b can be number | string
   }
 }
+```
+
+## 第三题
+
+> 定义一个 SetOptional 工具类型，支持把给定的 keys 对应的属性变成可选的。定义一个 SetRequired 工具类型，利用它可以把指定的 keys 对应的属性变成必填的。
+
+解
+
+```ts
+type Flatten<T extends object> = { [K in keyof T]: T[K] };
+
+type SetOptional<T extends object, K extends keyof T> = Flatten<
+  Partial<Pick<T, K>> & Omit<T, K>
+>;
+type setRequired<T extends object, K extends keyof T> = Flatten<
+  Required<Pick<T, K>> & Omit<T, K>
+>;
+```
+
+## 第四题
+
+> 定义一个 ConditionalPick 工具类型，支持根据指定的 Condition 条件来生成新的类型，对应的使用示例如下：
+
+```ts
+interface Example {
+  a: string;
+  b: string | number;
+  c: () => void;
+  d: {};
+}
+
+// 测试用例：
+type StringKeysOnly = ConditionalPick<Example, string>;
+//=> {a: string}
+```
+
+解一：
+先定义一个`ConditionalKey`满足要求的类型的 key 以联合类型返回。
+后利用内置工具类`Pick`挑选需要的键值对。
+
+```ts
+type ConditionalKey<T, V> = {
+  [K in keyof T]: T[K] extends V ? K : never;
+}[keyof T];
+
+type ConditionalPick<T, U> = Pick<T, ConditionalKey<T, U>>;
+```
+
+解二：
+类型断言 as
+
+```ts
+type ConditionalPick<T, U> = {
+  [P in keyof T as T[P] extends U ? P : never]: T[P];
+};
 ```
