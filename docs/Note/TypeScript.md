@@ -154,3 +154,34 @@ type ConditionalPick<T, U> = {
   [P in keyof T as T[P] extends U ? P : never]: T[P];
 };
 ```
+
+## 第五题
+
+> 定义一个工具类型 AppendArgument，为已有的函数类型增加指定类型的参数，新增的参数名是 x，将作为新函数类型的第一个参数。具体的使用示例如下所示：
+
+```ts
+type Fn = (a: number, b: string) => number
+type AppendArgument<F, A> = // 你的实现代码
+
+type FinalFn = AppendArgument<Fn, boolean>
+// (x: boolean, a: number, b: string) => number
+```
+
+解一：
+利用`Parameters`来获取函数的参数类型，利用`ReturnType`获取函数的返回类型
+
+```ts
+type AppendArgument<F extends (...args: any) => any, A> = (
+  x: A,
+  ...args: Parameters<F>
+) => ReturnType<F>;
+```
+
+解二：
+基于`infer`（`Parameters`和`ReturnType`工具类型也是基于 infer 实现）
+
+```ts
+type AppendArgument<F, A> = F extends (...args: infer Args) => infer Return
+  ? (x: A, ...args: Args) => Return
+  : never;
+```
