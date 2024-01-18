@@ -218,4 +218,84 @@ type Flatten<T extends any[]> = {
 }[number];
 ```
 
-**[number]是类型索引访问操作，可以将是 number 类型的 key 以联合类型返回**
+**[number]是索引类型访问操作，可以将是 number 类型的 key 以联合类型返回**
+
+## 第七题
+
+> 使用类型别名定义一个 EmptyObject 类型，使得该类型只允许空对象赋值：
+
+```ts
+type EmptyObject = {};
+
+// 测试用例
+const shouldPass: EmptyObject = {}; // 可以正常赋值
+const shouldFail: EmptyObject = {
+  // 将出现编译错误
+  prop: 'TS',
+};
+```
+
+> 在通过 EmptyObject 类型的测试用例检测后，我们来更改以下 takeSomeTypeOnly 函数的类型定义，让它的参数只允许严格 SomeType 类型的值。具体的使用示例如下所示：
+
+```ts
+type SomeType = {
+  prop: string;
+};
+
+// 更改以下函数的类型定义，让它的参数只允许严格SomeType类型的值
+function takeSomeTypeOnly(x: SomeType) {
+  return x;
+}
+
+// 测试用例：
+const x = { prop: 'a' };
+takeSomeTypeOnly(x); // 可以正常调用
+
+const y = { prop: 'a', addditionalProp: 'x' };
+takeSomeTypeOnly(y); // 将出现编译错误
+```
+
+解
+第一小问：
+在类型别名`EmptyObject`上，我们定义的是`{}`,这就意味着是`{}`的子类，那就可以被合法赋予。
+**extends {} 、 {} extends** 中的`{}`分别代表的是空对象和字面量类型。
+由于 ts 的比较是基于结构化类型系统，空对象是一切类型的基类。
+
+```ts
+type EmptyObject = {
+  [P in string | number | symbol]: never;
+};
+```
+
+第二小问：
+将多余的参数设置为`never`
+
+```ts
+type Exclusive<T1, T2 extends T1> = {
+  [K in keyof T2]: K extends keyof T1 ? T2[K] : never;
+};
+
+function takeSomeTypeOnly<T extends SomeType>(x: Exclusive<SomeType, T>) {
+  return x;
+}
+```
+
+## 第八题
+
+> 定义 NonEmptyArray 工具类型，用于确保数据非空数组。
+
+解一：
+
+```ts
+type NonEmptyArray<T> = [T, ...T[]];
+
+const a: NonEmptyArray<string> = []; // 将出现编译错误
+const b: NonEmptyArray<string> = ['Hello TS']; // 非空数据，正常使用
+```
+
+解二：
+`[]`本身就是`{}`的子类型。
+
+```ts
+type NonEmptyArray<T> = [] & { 0: T };
+```
