@@ -1,6 +1,6 @@
 ---
 group: TypeScript
-title: Ts练习题
+title: 类型体操（1～10）
 order: 2
 ---
 
