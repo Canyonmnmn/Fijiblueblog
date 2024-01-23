@@ -299,3 +299,45 @@ const b: NonEmptyArray<string> = ['Hello TS']; // 非空数据，正常使用
 ```ts
 type NonEmptyArray<T> = [] & { 0: T };
 ```
+
+## 第九题
+
+> 定义一个 JoinStrArray 工具类型，用于根据指定的 Separator 分隔符，对字符串数组类型进行拼接。
+
+解：
+
+```ts
+type JoinStrArray<
+  Arr extends string[],
+  Separator extends string,
+  Result extends string = '',
+> = Arr extends []
+  ? ''
+  : Arr extends [string]
+  ? `${Arr[0]}`
+  : Arr extends [string, ...infer Rest]
+  ? // @ts-expect-error
+    `${Arr[0]}${Separator}${JoinStrArray<Rest, Separator>}`
+  : string;
+```
+
+注意边界处理，递归到空数组、只有一项的数组需要特殊处理。
+
+## 第十题
+
+> 实现一个 Trim 工具类型，用于对字符串字面量类型进行去空格处理。具体的使用示例如下所示：
+
+```ts
+type Trim<V extends string> = // 你的实现代码
+  // 测试用例
+  Trim<' semlinker '>;
+//=> 'semlinker'
+```
+
+解：
+
+```ts
+type TrimRight<V extends string> = V extends ` ${infer A}` ? TrimRight<A> : V;
+type TrimLeft<V extends string> = V extends `${infer A} ` ? TrimLeft<A> : V;
+type Trim<V extends string> = TrimLeft<TrimRight<V>>;
+```
