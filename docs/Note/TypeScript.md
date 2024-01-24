@@ -1,7 +1,7 @@
 ---
 group: TypeScript
 title: 类型体操（1～10）
-order: 2
+order: 1
 ---
 
 ## 第一题
