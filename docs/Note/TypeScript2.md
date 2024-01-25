@@ -86,3 +86,61 @@ type Includes<T extends Array<any>, E> = T extends [infer A, ...infer B]
 ```
 
 ## 第十八题
+
+> 实现一个 UnionToIntersection 工具类型，用于把联合类型转换为交叉类型。具体的使用示例如下所示：
+
+解：
+利用函数类型的参数类型的逆变。
+
+```ts
+type UnionToIntersection<U> = (
+  U extends any ? (arg: U) => void : never
+) extends (arg: infer V) => void
+  ? V
+  : never;
+
+// 测试用例
+type U0 = UnionToIntersection<string | number>; // never
+type U1 = UnionToIntersection<{ name: string } | { age: number }>; // { name: string; } & { age: number; }
+```
+
+## 第十九题
+
+> 实现一个 OptionalKeys 工具类型，用来获取对象类型中声明的可选属性。具体的使用示例如下所示：
+
+```ts
+type Person = {
+  id: string;
+  name: string;
+  age: number;
+  from?: string;
+  speak?: string;
+};
+
+type OptionalKeys<T> = NonNullable<
+  {
+    [K in keyof T]: undefined extends T[K] ? K : never;
+  }[keyof T]
+>;
+type PersonOptionalKeys = OptionalKeys<Person>; // "from" | "speak"
+```
+
+## 第二十题
+
+> 实现一个 Curry 工具类型，用来实现函数类型的柯里化处理。具体的使用示例如下所示：
+
+```ts
+type Curry<
+  F extends (...args: any[]) => any,
+  P extends any[] = Parameters<F>,
+  R = ReturnType<F>,
+> = P extends [infer A, ...arg: infer B]
+  ? B extends []
+    ? (arg: A) => R
+    : (arg: A) => Curry<(...arg: B) => R>
+  : () => R;
+
+type F0 = Curry<() => Date>; // () => Date
+type F1 = Curry<(a: number) => Date>; // (arg: number) => Date
+type F2 = Curry<(a: number, b: string) => Date>; //  (arg_0: number) => (b: string) => Date
+```
