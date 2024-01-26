@@ -94,7 +94,7 @@ function myInstanceof(left, right) {
 - undefined：NaN
 - symbol：不能转
 - string：数字字符串可以转成数字类型。空字符串：0，非数字字符串：NaN
-- object：先转成对应的基本数据类型，再按照上述规则转换。（普通对象：NaN）
+- object：先转成对应的基本数据类型，再按照上述规则转换。（普通对象：NaN,[]:0）
 
 ## Object.js()、==、=== 区别
 
@@ -105,3 +105,19 @@ function myInstanceof(left, right) {
 ## 什么是 Javascript 的包装类型
 
 js 的基本数据类型上是没有属性和方法的。为了方便操作它的值，在调用基本数据类型的属性和方法的时候，会将它的值隐性的变成对象。
+
+## Javascript 是如何进行隐式类型转换的
+
+隐式转换可以归结为一个函数：
+
+```js
+// 非 Date对象
+function objToNumber = value => Number(value.valueOf().toString())
+```
+
+隐式转换发生在 +、-、\*、/、>、<、== 这些运算符之间。
+
+- **+**：一方有字符串，则俩边都会转换成字符串。如果俩方都没有字符串，就转换成数字。
+- **-、\*、/、==**：转成数字类型。
+- **>、<**：俩边都是字符串就比较字母表顺序。其他情况转换成数字类型。
+-
