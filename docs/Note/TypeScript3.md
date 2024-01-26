@@ -74,3 +74,23 @@ type Mutable<T, Keys extends keyof T = keyof T> = Omit<T, Keys> & {
   -readonly [K in Keys]: T[K];
 };
 ```
+
+## 第二十五题
+
+> 实现一个 IsUnion 工具类型，判断指定的类型是否为联合类型。具体的使用示例如下所示：
+
+```ts
+type IsUnion<T, U = T> = T extends any
+  ? [U] extends [T]
+    ? true
+    : false
+  : never;
+```
+
+## 第二十六题
+
+> 实现一个 IsNever 工具类型，判断指定的类型是否为 never 类型。具体的使用示例如下所示：
+
+```ts
+type IsNever<T> = [T] extends [never] ? true : false;
+```
