@@ -94,3 +94,33 @@ type IsUnion<T, U = T> = T extends any
 ```ts
 type IsNever<T> = [T] extends [never] ? true : false;
 ```
+
+## 第二十七题
+
+> 实现一个 Reverse 工具类型，用于对元组类型中元素的位置颠倒，并返回该数组。元组的第一个元素会变成最后一个，最后一个元素变成第一个。
+
+```ts
+type Reverse<T extends Array<any>, R extends Array<any> = []> = T extends [
+  infer A,
+  ...infer B,
+]
+  ? Reverse<B, [A, ...R]>
+  : R;
+```
+
+## 第二十八题
+
+> 实现一个 Split 工具类型，根据给定的分隔符（Delimiter）对包含分隔符的字符串进行切割。可用于定义 String.prototype.split 方法的返回值类型。具体的使用示例如下所示：
+
+```ts
+type Item = 'semlinker,lolo,kakuqo';
+
+type Split<
+  S extends string,
+  Delimiter extends string,
+> = S extends `${infer A}${Delimiter}${infer B}`
+  ? [A, ...Split<B, Delimiter>]
+  : [S];
+
+type ElementType = Split<Item, ','>; // ["semlinker", "lolo", "kakuqo"]
+```
