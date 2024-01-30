@@ -124,3 +124,14 @@ type Split<
 
 type ElementType = Split<Item, ','>; // ["semlinker", "lolo", "kakuqo"]
 ```
+
+## 第二十九题
+
+> 实现一个 ToPath 工具类型，用于把属性访问（. 或 []）路径转换为元组的形式。具体的使用示例如下所示：
+
+```ts
+type CC<T> = T extends `${infer A}[${infer B}]` ? [A, B] : [T];
+type ToPath<S extends string> = S extends `${infer A}.${infer B}`
+  ? [...ToPath<A>, ...ToPath<B>]
+  : CC<S>;
+```
