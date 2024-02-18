@@ -49,6 +49,70 @@ console.log(jo.name); //josasd
 - 没有自己的 this 和 prototype，this 也不能被改变，所以也不能作为构造函数。
 - 没有 arguments
 
-```
+## map 和 object 的区别
 
-```
+- 键的类型：map 可以是任何类型，object 只能是字符串。
+- 键的顺序：map 是有序的，object 是无序的。
+- 获取键值对的方式：map 可以直接通过 size 属性获得，object 需要手动计算。
+- 迭代：map 可以直接被迭代。
+
+## map 和 weekMap 的区别
+
+weekMap 的键只能是对象，且对该对象是弱引用，不计入垃圾回收机制。不需要的时候会自动释放空间。
+
+## JSON 的理解
+
+JSON 是一种基于文本的轻量的数据交换格式。
+提供了俩种方法互相转换 JSON.stringfy 和 JSON.parse
+
+## js 脚本延迟加载的方式有哪些？
+
+- defer：和文档的解析属于同步，文档解析完成后开始加载脚本。
+- async：属于异步，会立即下载脚本，执行会延迟。
+- 使用 settimeout
+
+## javascript 类数组的定义 以及如何转成数组
+
+一个有 length 属性和若干索引属性的对象就可以称为类数组。
+
+- Array.prototype.slice.call(arraylike)
+- Array.prototype.splice.call(arraylike,0)
+- Array.prototype.concat.apply([],arraylike)
+- [...arraylike]
+- Array.from(arraylike)
+
+## 数组有哪些原生方法
+
+- 添加/删除元素
+  - 首部添加/删除
+    - unshift(...item)
+    - shift()
+  - 尾部添加/删除
+    - push(...item)
+    - pop()
+  - splice(start,count,...item?)：从 start 下标开始删除 count 个元素，并在 start 处插入...item 个元素。
+  - slice(start,end):复制[start,end)下标的元素。
+  - concat(...item):从尾部拼接...item 元素
+- 搜索元素
+  - indexOf/lastIndexOf(item,pos):从第 pos 个索引的元素开始搜索 item，true：索引，false：-1
+  - includes(value):有该元素返回 true，无 false。
+  - find/findIndex/filter(function):根据 function 过滤元素，返回满足 function 返回为 true 的第一个值/第一个值的索引/所有值。
+- 遍历元素
+- forEach(item,index,arr)
+- 转换数组
+- map
+- sort
+- reverse
+- split/join
+- reduce
+
+## 常见的位运算符有哪些
+
+- &
+- ｜
+- ^：相同为 0，不同为 1
+- ~：取反
+- > >
+- <<
+
+## 什么是 DOM 和 BOM？
