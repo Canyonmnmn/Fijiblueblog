@@ -6,10 +6,7 @@ export default () => (
     <Center style={{ height: 600 }}>
       <Hero
         title={"canyon's <b>blog</b>"}
-        actions={[
-          { text: '开始阅读', link: '/guide' },
-          { text: 'Github', link: '/' },
-        ]}
+        actions={[{ text: '开始阅读', link: '/note' }]}
         description={'学习记录'}
       />
     </Center>
