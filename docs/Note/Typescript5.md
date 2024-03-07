@@ -1,6 +1,6 @@
 ---
 group: TypeScript
-title: TS一些注意点
+title: 分布式条件类型
 order: 5
 ---
 
