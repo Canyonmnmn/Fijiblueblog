@@ -6,4 +6,3 @@ title: 介绍
 ---
 
 **算法**模块
-![1](../../public/images/suanfa.svg)
