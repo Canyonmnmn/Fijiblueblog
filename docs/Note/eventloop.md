@@ -62,3 +62,42 @@ console.log(6);
 输出结果是 1、4、6、2、5、3
 
 需要注意的是，await 右边的代码会立即执行，后面的代码才是异步任务。
+
+### 题二
+
+```js
+async function async1() {
+  console.log('async1 start');
+  await new Promise((resolve) => {
+    console.log('promise1');
+  });
+  console.log('async1 success');
+  return 'async1 end';
+}
+console.log('srcipt start');
+async1().then((res) => console.log(res));
+console.log('srcipt end');
+```
+
+输出结果：script start、async1 start、promise1、script end
+Promise 状态一直是 pending，所以 await 后面的代码不会执行。
+
+### 题目三
+
+```js
+async function async1() {
+  await async2();
+  console.log('async1');
+  return 'async1 success';
+}
+async function async2() {
+  return new Promise((resolve, reject) => {
+    console.log('async2');
+    reject('error');
+  });
+}
+async1().then((res) => console.log(res));
+```
+
+输出结果：async1、Uncaught (in promise) error。
+async2 状态为拒绝，就会暂停后面代码的执行。
