@@ -6,10 +6,42 @@ order: 3
 
 # JS 中的 this
 
-函数的 this 关键字分为俩种情况：
+this 有四个调用模式：
 
-- 普通函数：它的 this 根据调用者的作用域来决定，谁调用指向谁堆作用域。
-- 箭头函数：它的 this 是外部第一个普通函数的 this。它本身不具备 this。
+- 函数调用模式，当一个函数不是一个对象的属性时，直接作为函数来调用时，this 指向全局对象。
+  - 普通函数：它的 this 根据调用者的作用域来决定，谁调用指向谁堆作用域。
+  - 箭头函数：它的 this 是外部第一个普通函数的 this。它本身不具备 this。
+- 方法调用模式，如果一个函数作为一个对象的方法来调用时，this 指向这个对象。
+- 构造器调用模式，如果一个函数用 new 调用时，函数执行前会新创建一个对象，this 指向这个新创建的对象。
+- apply 、 call 和 bind 调用模式
+
+以下是各种情况：
+
+```js
+let obj = {
+  fn: function () {
+    this.a = 1;
+    console.log(this);
+  },
+  fn2: () => {},
+};
+// 函数调用模式 普通函数 this = window
+const functionThis = obj.fn;
+functionThis();
+// 函数调用模式 箭头函数 this = window
+obj.fn2();
+// 方法调用模式 this = obj
+obj.fn();
+// 构造器调用模式 this = obj2
+let obj2 = new obj.fn();
+obj2();
+// apply call bind
+let obj3 = { a: 1 };
+obj.fn.call(obj3); // this = obj3
+obj.fn.apply(obj3); // this = obj3
+let fn3 = obj.fn.bind(obj3);
+fn3(); //this = obj3
+```
 
 ## 题目
 
