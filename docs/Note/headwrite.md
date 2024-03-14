@@ -114,3 +114,19 @@ function curry(fn, ...args) {
   return fn.length <= args.length ? fn(...args) : curry.bind(null, fn, ...args);
 }
 ```
+
+## 深拷贝
+
+```js
+function clone(obj) {
+  if (typeof obj === 'object') {
+    let cloneObj = {};
+    for (const key in obj) {
+      cloneObj[key] = clone(obj[key]);
+    }
+    return cloneObj;
+  } else {
+    return obj;
+  }
+}
+```
