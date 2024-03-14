@@ -34,7 +34,6 @@ obj.fn2();
 obj.fn();
 // 构造器调用模式 this = obj2
 let obj2 = new obj.fn();
-obj2();
 // apply call bind
 let obj3 = { a: 1 };
 obj.fn.call(obj3); // this = obj3
