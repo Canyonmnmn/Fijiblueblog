@@ -130,3 +130,17 @@ function clone(obj) {
   }
 }
 ```
+
+## 手写一个获取参数类型的函数
+
+```js
+function getType(param) {
+  // null、object、array 都会返回object
+  if (typeof param !== 'object') {
+    return typeof param;
+  } else {
+    let res = Object.prototype.toString.call(obj).split(' ')[1];
+    return res.substring(0, res.length - 1).toLowerCase();
+  }
+}
+```
