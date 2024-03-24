@@ -1,7 +1,8 @@
 ---
-group: 手写函数
+group:
+  title: 手写函数
+  order: 9
 title: 手写函数
-order: 7
 ---
 
 ## 防抖
